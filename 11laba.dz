@@ -1,0 +1,35 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <locale.h>
+#include <stdlib.h>
+#include <time.h>
+#define N 10
+#define MIN -1000
+#define MAX 1000
+
+
+int main()
+{
+    setlocale(LC_ALL, "RUS");
+    int A[N], m=1;
+    printf("Введите массив\n");
+    for (int i = 0; i < N; i++)
+        scanf_s("%d", &A[i]);
+    for (int i = 0; i < N; i++)
+    {
+        if (A[i] == 0 && i < N)
+        {
+            for (int j =i+ 1; j < N; j++)
+            {
+                if (A[j] == 0)
+                {
+                    break;
+                }
+                m *= A[j];
+            }
+            break;
+        }
+
+    }
+    printf("Произведение элементов массива, расположенных между первым и вторым нулевыми элементами : %d\n", m);
+}
