@@ -1,0 +1,83 @@
+#include <locale.h>
+#include <stdio.h>
+#include <math.h>
+//#1
+	double fa(double x)
+	{
+		double y;
+		if (x <= 3)
+		{
+			y = pow(x, 2) - 3 * x + 9;
+		}
+		else
+		{
+			y = 1 / (pow(x, 3) + 3);
+		}
+		return y;
+	}
+	double fb(double x)
+
+	{
+		double y;
+		y = x * exp(sin(pow(x, 2)));
+		return y;
+	 }
+//#2
+	double factorial(double a)
+	{
+		double result = 1;
+		for (int i=1; i<=a; i++)
+		{
+			result *= i;
+		}
+		return result;
+	}
+	double sin_n(double x, double N)
+	{
+		double y = 0;
+		for (int k = 1; k <= N; k++)
+		{
+			y += pow(-1, k - 1) * (pow(x, 2 * k - 1)) / (factorial(2*k - 1));
+		}
+		return y;
+	}
+	double sin_eps(double x, double eps)
+	{
+		double y = 0, element;
+		int k = 0;
+		do
+		{
+			++k;
+			element = pow(-1, k - 1) * (pow(x, 2 * k - 1)) / (factorial(2 * k - 1));
+			y += element;
+		}
+		while (fabs(element) > eps);
+		return y;
+	}
+	int main()
+	{
+		// #1
+		setlocale(LC_ALL, "RUS");
+		double x;
+		puts("Ââåäèòå x");
+		scanf_s("%lf", &x);
+		printf("fa(x)=%lf, fb(x)=%lf\n ", fa(x), fb(x));
+		printf("Ïðîèçâåäåíèå: fa * fb = %lf\n Ðàçíîñòü êâàäðàòîâ: fa^2 - fb^2 = %lf\n Óäâîåííàÿ ñóììà: 2*(fa+fb) = %lf\n", fa(x) * fb(x), pow(fa(x), 2) - pow(fb(x), 2), 2 * (fa(x) + fb(x)));
+
+		//#2
+		double result1, result2, result3;
+		puts("Ââåäèòå x");
+		scanf_s("%lf", &x);
+		int N;
+		puts("Ââåäèòå ÷èñëî  ñóììèðóåìûõ k-õ ÷ëåíîâ ðÿäà");
+		scanf_s("%d", &N);
+		double eps;
+		puts("Ââåäèòå òî÷íîñòü âû÷èñëåíèÿ");
+		scanf_s("%lf", &eps);
+
+		result1 = sin(x);
+		result2 = sin_n(x, N);
+		result3 = sin_eps(x, eps);
+
+		printf(" sin(x) = %lg\n sin_n(x) = %lg\n sin_eps(x) = %lg", result1, result2, result3);
+	}
